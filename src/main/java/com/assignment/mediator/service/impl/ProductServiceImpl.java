@@ -14,8 +14,8 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    
-    
+
+
     @Autowired
     Connector connector;
 
@@ -29,11 +29,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductsByCategory(String searchVal, String categoryId) {
+    public List<Product> getProductsByCategory( String categoryId, String searchVal) {
         List<Product> productList = getProductList();
         List<Product> productListByCategory = getProductList();
 
-        if (searchVal.isEmpty()|| searchVal==null){
+        if (searchVal.equals("0")|| searchVal==null){
             for (Product product: productList) {
                 if(product.getProduct_category().getId() == categoryId ){
                     productListByCategory.add(product);
@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
                     productListByCategory.add(product);
                 }
             }
-        }else if ((!categoryId.isEmpty()|| categoryId!=null) && (!searchVal.isEmpty()|| searchVal!=null)){
+        }else if ((!categoryId.isEmpty()|| categoryId!=null) && (!searchVal.equals("0")|| searchVal!=null)){
             for (Product product: productList) {
                 if((product.getDescription()==(searchVal)&&(product.getProduct_category().getId().equals(categoryId))) ){
                     productListByCategory.add(product);

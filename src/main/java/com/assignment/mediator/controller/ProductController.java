@@ -26,8 +26,8 @@ public class ProductController {
     }
 
     @PostMapping("/search-data")
-    public List<Product> getProductsByCategory(@PathParam("selectVal") String categoryId,
-                                               @PathParam("searchVal") String searchVal) {
+    public List<Product> getProductsByCategory(@RequestParam(value = "selectVal") String categoryId,
+                                               @RequestParam(value = "searchVal") String searchVal) {
         return productService.getProductsByCategory(categoryId, searchVal);
     }
 
