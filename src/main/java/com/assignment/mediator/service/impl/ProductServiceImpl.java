@@ -29,13 +29,27 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductsByCategory(String categoryId) {
+    public List<Product> getProductsByCategory(String searchVal, String categoryId) {
         List<Product> productList = getProductList();
         List<Product> productListByCategory = getProductList();
-        
-        for (Product product: productList) {
-            if(product.getProduct_category().getId() == categoryId){
-                productListByCategory.add(product);
+
+        if (searchVal.isEmpty()|| searchVal==null){
+            for (Product product: productList) {
+                if(product.getProduct_category().getId() == categoryId ){
+                    productListByCategory.add(product);
+                }
+            }
+        }else if (categoryId.isEmpty()|| categoryId==null){
+            for (Product product: productList) {
+                if(product.getDescription()==(searchVal) ){
+                    productListByCategory.add(product);
+                }
+            }
+        }else if ((!categoryId.isEmpty()|| categoryId!=null) && (!searchVal.isEmpty()|| searchVal!=null)){
+            for (Product product: productList) {
+                if((product.getDescription()==(searchVal)&&(product.getProduct_category().getId().equals(categoryId))) ){
+                    productListByCategory.add(product);
+                }
             }
         }
         return productListByCategory;

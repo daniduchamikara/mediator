@@ -1,12 +1,12 @@
 package com.assignment.mediator.controller;
 
 
-
 import com.assignment.mediator.dto.Product;
 import com.assignment.mediator.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 /**
@@ -16,18 +16,19 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/product")
 public class ProductController {
-    
+
     @Autowired
     ProductService productService;
-    
+
     @GetMapping("/product-list")
-    public List<Product> getProductList(){
+    public List<Product> getProductList() {
         return productService.getProductList();
     }
-    
-    @GetMapping("/products-by-category/{categoryId}")
-    public List<Product> getProductsByCategory(@PathVariable String categoryId){
-        return productService.getProductsByCategory(categoryId);
+
+    @PostMapping("/search-data")
+    public List<Product> getProductsByCategory(@PathParam("selectVal") String categoryId,
+                                               @PathParam("searchVal") String searchVal) {
+        return productService.getProductsByCategory(categoryId, searchVal);
     }
-    
+
 }
